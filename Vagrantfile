@@ -68,7 +68,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder 'www', '/var/www', id: 'vagrant-root',
     owner: 'vagrant',
     group: 'www-data',
-    mount_options: ["dmode=777,fmode=777"]
+    mount_options: ["dmode=774,fmode=775"]
 
   config.vm.synced_folder 'nginx', '/etc/nginx/sites-enabled', id: 'nginx-sites',
     owner: 'root',
@@ -86,5 +86,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Fixes "stdin: is not a tty" and "mesg: ttyname failed : Inappropriate ioctl for device" messages --> mitchellh/vagrant#1673
 
   config.vm.provision "shell", args: "#{config.vm.hostname}", path: 'provision.sh'
+  config.vm.provision "shell", run: "always", inline: "systemctl restart nginx"
 
 end
