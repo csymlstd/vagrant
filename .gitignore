@@ -1,0 +1,6 @@
+.vagrant
+
+bowtie.box
+
+/www/*
+!www/html/

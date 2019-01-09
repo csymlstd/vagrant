@@ -1,0 +1,14 @@
+server {
+	listen 80;
+	listen [::]:80;
+	
+	root /usr/share/phpmyadmin;
+	index index.php index.html index.htm;  
+
+	server_name phpmyadmin.bowtie-vagrant.test; 
+
+	location ~ .php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+	}
+}
